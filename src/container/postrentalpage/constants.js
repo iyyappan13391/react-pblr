@@ -1,4 +1,3 @@
-export const GET_TALUK_VILLAGE_START = 'getDataStart';
-export const GET_TALUK_DATA = 'getTalukData';
-export const GET_VILLAGE_DATA = 'getVillageData';
-export const FETCH_DATA_FAIL = 'fetchDataFail';
+export const POST_CREATE_RENTAL_START = 'postCreateRental';
+export const POST_RES_DATA_SUCCESS = 'postResDataSuccess';
+export const POST_RES_DATA_FAIL = 'postResDataFail';

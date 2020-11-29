@@ -52,7 +52,7 @@ body {
   margin: 0 !important;
   font-family: 'Titillium Web', sans-serif;
   /* background-size: cover !important; */
-  background-image: url("bg5.jpg");
+  background-image: url("./bg5.jpg");
   background-repeat: no-repeat;
 }
 
@@ -243,7 +243,7 @@ input[type="checkbox"] {
 
 /**header**/
 .activeClassMenu{
-  color:red;
+  color:#fff;
 }
 li.nav-item {
   margin-right: 20px;
@@ -330,3 +330,8 @@ body{
   width:auto !important;
   height:200px !important;
 }
+
+.a{
+  color:#fff !important;
+}
+

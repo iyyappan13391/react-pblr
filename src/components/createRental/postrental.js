@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ToastProvider,useToasts } from 'react-toast-notifications';
 import { BrowserRouter as Router, Switch, Route, Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form as Formm, Field, ErrorMessage } from 'formik';
@@ -6,9 +7,9 @@ import { Form, Jumbotron, Col } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import axios from 'axios';
-
 import { Action_getDataStartfn } from '../../container/homepage/actions';
+import {Action_PostRentalDataStartfn} from '../../container/postrentalpage/actions';
+
 
 
 
@@ -50,38 +51,40 @@ const CarouselFn = (props) => {
 }
 
 
-
+const ToastDemo = ({ content }) => {
+    const { addToast } = useToasts()
+    return (
+      <button onClick={() => addToast("The Post data has been saved successfully ", {
+        appearance: 'success',
+        autoDismiss: true,
+      })}>
+        Add Toast
+      </button>
+    )
+  }
 
 
 const PostRental = () => {
 
+
+    
     const [selectvillage, setvillageSelectArea] = useState([]);
     const history = useHistory();
+    
     const value = useSelector(state => state);
-    const dispatch = useDispatch(value);
+    const dispatchTALUKVILLAGE = useDispatch(value);
+
+    const PostRentalDataValue = useSelector(state => state);
+    const dispatchPostRental = useDispatch(PostRentalDataValue);
+
+   
 
     useEffect(() => {
-        dispatch(Action_getDataStartfn());
+        dispatchTALUKVILLAGE(Action_getDataStartfn());
     }, []);
 
 
-    const uploadImage = () => {
-        console.log('previewimage', previewimage);
-        var formData = new FormData();
-        for (const key of Object.keys(previewimage)) {
-            formData.append(`fileupload`, previewimage[key])
-        }
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("http://localhost:3001/post/upload", formData, config)
-            .then((response) => {
-                alert("The file is successfully uploaded");
-            }).catch((error) => {
-            });
-    }
+   
 
     const talukData = value.TalukVillageReducers != undefined ? value.TalukVillageReducers.tdata : [];
     const villageData = value.TalukVillageReducers != undefined ? value.TalukVillageReducers.vdata : [];
@@ -103,7 +106,7 @@ const PostRental = () => {
     ];
 
     return (
-
+        <ToastProvider>
         <Formik
             initialValues={{
                 fullname: '',
@@ -171,8 +174,8 @@ const PostRental = () => {
                     alert(JSON.stringify(values), "values");
 
 
-                   
-                  
+
+
                     let datapost = {
                         "Owner_Name": values.fullname,
                         "Owner_mail_id": values.email,
@@ -201,16 +204,28 @@ const PostRental = () => {
                         }
                     };
                     
-                    axios.post('http://localhost:3001/post/create', formData, config).then(response => {
+
+
+                    
+                    dispatchPostRental(Action_PostRentalDataStartfn(formData));
+                    console.log('dispatch-post-rental-response',PostRentalDataValue);
+
+
+                    /*axios.post('http://localhost:3001/post/create', formData, config).then(response => {
                         console.log("create post", response.data);
                         return response.data;
-                    }).catch(err => { console.log("create post", err); throw err });
+                    }).catch(err => { console.log("create post", err); throw err });*/
 
 
                     setSubmitting(false);
                     resetForm();
                     setpreviewimage([]);
+                    // addToast("Post Has Been Successfull Stored...", {
+                    //     appearance: 'info',
+                    //     autoDismiss: true,
+                    // });
                     history.push("/list");
+                    window.location.reload(false)
                 }, 500);
             }}>
             {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
@@ -234,8 +249,9 @@ const PostRental = () => {
                                             <Field className="form-control" type="email" name="email" placeholder="Enter email" />
                                             <ErrorMessage name="email" component="span" className="error" />
                                         </Form.Group>
-
-                                        {/* <Form.Group controlId="formBasicPassword">
+                                       
+                                        {/* <ToastDemo/>     */}
+                                                                            {/* <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
                                     <Field  className="form-control" name="password" type="password" placeholder="Password" />
                                     <ErrorMessage name="password" component="span" className="error" />
@@ -341,7 +357,7 @@ const PostRental = () => {
                                         </Form.Group>
 
                                         <Form.Group>
-                                            <Form.File multiple="true" as="file" id="exampleFormControlFile1" name="fileupload" label="Photos Upload"
+                                            <Form.File multiple={true} as="file" id="exampleFormControlFile1" name="fileupload" label="Photos Upload"
                                                 onChange={(event) => {
                                                     event.preventDefault();
                                                     console.log('format1', event.target.files);
@@ -365,7 +381,6 @@ const PostRental = () => {
                                                 }}
                                                 onBlur={handleBlur} />
                                             <ErrorMessage name="fileupload" component="span" className="error" />
-                                            {false && <button variant="primary" type="button" onClick={uploadImage}>Upload</button>}
                                             <CarouselFn imagess={previewimage} setpreviewimage={setpreviewimage} />
                                         </Form.Group>
 
@@ -398,7 +413,8 @@ const PostRental = () => {
         </Formik>
 
 
-    )
+        </ToastProvider>
+        )
 
 
 

@@ -1,12 +1,16 @@
 import { call, put, takeLatest , takeEvery } from 'redux-saga/effects';
-
-import {GET_TALUK_VILLAGE_START,GET_TALUK_DATA,GET_VILLAGE_DATA,FETCH_DATA_FAIL} from './constants';
+import {POST_CREATE_RENTAL_START,POST_RES_DATA_SUCCESS,POST_RES_DATA_FAIL} from './constants';
 
 import axios from 'axios';
 
-function fetchApiTaluk() {
-
-    return axios.get('http://localhost:3001/home').then(response => {
+function PutApiTaluk(formData) {
+    
+    const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    };
+    return axios.post('http://localhost:3001/post/create',formData,config).then(response => {
         console.log("reacreacreac", response.data);
         return response.data;
     })
@@ -14,22 +18,19 @@ function fetchApiTaluk() {
 
 
 }
-function* fetchTalukVillageData() {
+function* CreateRentalData(actions) {
     try {
-        const talukData = yield call(fetchApiTaluk);
-        yield put({ type: GET_TALUK_DATA, payload: talukData });
+        const postResponseData = yield call(PutApiTaluk,actions.payload);
+        yield put({ type: POST_RES_DATA_SUCCESS, payload: postResponseData });
     }
-    catch {
-        console.log("catch blockkkk")
-        yield put({ type: FETCH_DATA_FAIL, error: ["Fetch data Fail"] });
+    catch(err) {
+        console.log("catch blockkkk",err);
+        yield put({ type: POST_RES_DATA_FAIL, error: ["Fetch data Fail"] });
     }
 }
-function* mysaga() {
 
-    yield takeLatest(GET_TALUK_VILLAGE_START, fetchTalukVillageData)
-}
 
-export default mysaga;
+export default CreateRentalData;
 
 
 

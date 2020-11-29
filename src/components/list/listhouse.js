@@ -20,28 +20,8 @@ const Listhouse = () => {
 
     const [dataFApi, setdataFApi] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/post/getlist').then(response => {
-            console.log("get post", response.data);
-            setdataFApi(response.data);
-            return response.data;
-        }).catch(err => { console.log("get post", err); throw err });
-    }, [])
-  
-
-    console.log('dataFApi',dataFApi);
-
-
-
-    console.log('<p>{RawData}</p>', RawData)
-
-
-    
-
-
    
-
-    return (
+   return (
 
 
         <section className="text-left hide-footer" style={{ "margin-top": "10px" }}>

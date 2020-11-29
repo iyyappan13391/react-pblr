@@ -1,0 +1,5 @@
+node_modules/
+build/
+.vscode/
+desktop.ini
+public/images/

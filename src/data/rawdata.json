@@ -1,0 +1,36 @@
+[
+    {
+        "fullname":"Iyyappan",
+        "email":"iyyappan13391@gmail.com",
+        "password":"7092921126",
+        "contactno":"7092921126",
+        "taluk":"PERAMBALUR",
+        "village":"PERAMBALUR(S)",
+        "renttype":"RENT",
+        "BHK":"2BHK",
+        "fileupload":[{"src":"images/1.jpg"},{"src":"images/2.jpg"},{"src":"images/3.jpg"},{"src":"images/bg4.jpg"}],
+        "description":"Nice condition with car parking....",
+        "posted time":"2 days ago",
+        "Furnished Type":"Semi Furnished",
+        "Carparking":"No",
+        "cost":["8000","20,000"]
+     
+    },
+    {
+        "fullname":"Ishwariya",
+        "email":"ishwariyaiyyappan@gmail.com",
+        "password":"7871113391",
+        "contactno":"7871113391",
+        "taluk":"PERAMBALUR",
+        "village":"PERAMBALUR(S)",
+        "renttype":"LEASE",
+        "BHK":"3BHK",
+        "fileupload":[{"src":"images/4.jpg"},{"src":"images/5.jpg"},{"src":"images/bg3.jpg"},{"src":"images/bg5.jpg"}],
+        "description":"south face house , independed home, Fully furnished home",
+        "posted time":"50 minutes ago",
+        "Furnished Type":"Fully Furnished",
+        "Carparking":"YES",
+        "cost":["4500","50,000"]
+        
+    }
+]

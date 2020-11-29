@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
+
+
 .App {
   text-align: center;
 }
@@ -41,15 +44,16 @@
 /***pblr***/
 @font-face {
   font-family: myFirstFont;
-  src: url(fonts/Staatliches-Regular.ttf);
+  src: url(fonts/Staatliches-Regular.ttf) !important;
 }
 
 body {
   /*height: 1000px;*/
   margin: 0 !important;
   font-family: 'Titillium Web', sans-serif;
-  background-size: cover !important;
-  background: url(images/bg5.jpg)no-repeat;
+  /* background-size: cover !important; */
+  background-image: url("bg5.jpg");
+  background-repeat: no-repeat;
 }
 
 .footer {
@@ -74,14 +78,14 @@ left: 0;
 right: 0;
 }
 .sectionMain {
-top: 101px;
+top: 75px;
 position: absolute;
 text-align: center;
 margin: 0 auto;
 vertical-align: middle;
 width: 99%;
 }
-.btn-outline-success {
+.btn-outline-success,.pblrThemeBtn {
 background-color: rebeccapurple;
 color: #fff;
 border-color: transparent !important;
@@ -127,6 +131,31 @@ padding: 20px 10px;
 background-color: transparent !important;
 border-bottom: 1px solid #ffffff5c !important;
 }
+
+.containerL {
+  margin-top: 20px;
+  width: 1200px;
+  background: #fff;
+  margin: 0 auto;
+}
+.details_ul>li {
+  list-style: none;
+  text-align: left;
+}
+.imagesListRent {
+  width: 300px;
+}
+.details_ul {
+  padding: 0;
+  height: 140px;
+}
+.ClickContact {
+  text-align: right;
+  margin-right: 0;
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+}
 .agoText {
 text-align: right;
 /* display: inline-flex; */
@@ -137,9 +166,167 @@ right: 15px;
 font-size: 14px;
 font-weight: bold;
 }
-.btn-outline-success:hover {
+.btn-outline-success:hover,.pblrThemeBtn:hover {
 color: #fff;
 background-color: mediumvioletred !important;
 border-color: mediumvioletred !important;
 }
+
+.HeaderPblr{
+  color:#fff;
+  margin-bottom: 20px
+}
+.mb20{
+  margin-bottom:20px !important
+}
+.selectboxCus{
+  width:150px !important
+}
+.RLTxt{
+  text-decoration: underline !important;color:#fff !important;
+}
+
+
+/***List page***/
+.record {
+  border: 1px solid #eee;
+}
+.FilterTxt {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.Fpanel {
+  margin: 10px 0;
+}
+.Fpanel .head {
+  font-size: 16px;
+  font-weight: bold;
+}
+.Fpanel label {
+  font-size: 14px;
+  margin-right: 10px;
+  font-weight: normal;
+  cursor: pointer;
+}
+input[type="Radio"],
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+.detailsPanel {
+  margin-left: 17.5% !important;
+}
+.fixedSidebar {
+  position: fixed;
+  z-index: 1;
+  max-width: 200px;
+  max-height: 640px;
+  padding: 10px 15px;
+}
+.whitebg {
+  background-color: #fff;
+  border: 1px solid #ddd !important;
+}
+.moreDetails {
+  margin-top: 16px !important;
+  line-height: 40px;
+  color: mediumvioletred;
+}
+.moreDetails:hover {
+  color: mediumvioletred !important;
+}
+.justifyUnset{
+  justify-content: unset !important;
+}
+
+/***List page***/
+
+/**header**/
+.activeClassMenu{
+  color:red;
+}
+li.nav-item {
+  margin-right: 20px;
+}
+/**header**/
+
 /***pblr***/
+.jumbotron{
+  background-color:#fff !important;
+}
+body{
+  overflow: hidden;
+}
+.main-content-height{
+    max-height: calc(100vh - 110px);
+    overflow: auto;
+    margin: 0 -15px;
+    padding: 15px;
+}
+.hide-footer .main-content-height{
+  max-height: calc(100vh - 90px);
+  background-color:#fff !important;
+}
+.hide-footer+footer{
+  display: none;
+}
+.main-content-height.padding-0{
+  padding: 0;
+  max-height: calc(100vh - 70px);
+}
+
+
+.mart20{
+  margin-top:20px !important;
+}
+.marb20{
+  margin-bottom:20px !important;
+}
+.marr20{
+  margin-right:20px !important;
+}
+.marr20{
+  margin-right:20px !important;
+}
+.marr10{
+  margin-right:10px !important;
+}
+.marr10{
+  margin-right:10px !important;
+}
+/****login pop***/
+.error{color:red !important;}
+.marr20{margin-right:20px}
+
+
+.carousel .thumb img {
+  width: 100% !important;
+  height: 100% !important;
+}
+.removeClass{
+  bottom: 35px;
+  position: absolute;
+  right: 40px !important;
+  z-index: 99999999 !important;
+
+}
+
+.carousel .slide img {
+  max-height: 300px;  /* change this to whatever you want */
+  width: auto;
+}
+
+@media (min-width: 1200px){
+.container, .container-sm, .container-md, .container-lg, .container-xl {
+    max-width: 1250px;
+}
+}
+.rangeslider {
+  margin: 10px 0 !important;
+}
+
+.Caro_slide_height{
+  /* max-height:185px !important; */
+  width:auto !important;
+  height:200px !important;
+}

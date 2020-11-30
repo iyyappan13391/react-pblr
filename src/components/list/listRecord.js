@@ -13,23 +13,15 @@ const ListRecord = (props) => {
     
     const histroy = useHistory();
     const  value = useSelector(state => state);
-    const  dispatch = useDispatch(value); 
+    const  dispatch = useDispatch(value);
+    
+    const detailspage = (id) => {
+        console.log('+++++',id);
+        histroy.push(`/details/${id}`);
 
-    const detailspage = () => {
-        histroy.push('/details');
     }
 
-    useEffect(() => {
 
-       dispatch(Action_getPostedRentalStartfn());
-       // axios.get('http://localhost:3001/post/getlist').then(response => {
-        //     console.log("get post", response.data);
-        //     setdataFApi(response.data);
-        //     return response.data;
-        // }).catch(err => { console.log("get post", err); throw err });
-    }, []);
-{console.log('dataFApi',value.GetPostRental.dataResponse)}
-    
     return (
 
         <>
@@ -52,20 +44,26 @@ const ListRecord = (props) => {
                     <div className="col-lg-8">
                         <ul className="details_ul">
                             <li>
-                                <b>{dataM.House_Type || <Skeleton count={2} /> }  </b>
+                                <b>{dataM.House_Type } ({dataM.Rent_Type == "RentType" ? "Rent " : "Lease"} Available)  </b>
                                 <span className="agoText">{dataM["Post_time"]}</span>
                             </li>
-                            <li>Taluk:{dataM["Taluk"]}, Village: {dataM["Village"]}</li>
-                            <li>Parking {dataM.Carparking}</li>
-                            <li>Rent<b> {dataM.Rent_amt}</b>&nbsp;(monthly) &nbsp;&nbsp; | &nbsp;&nbsp; Advance<b> {dataM.Advance_amt}</b></li>
-                            <li>Address: {dataM.Property_address}</li>
+                            <li><span className="listHeding">Taluk:</span> {dataM["Taluk"]}, <span className="listHeding">Village:</span> {dataM["Village"]}</li>
+                            <li><span className="listHeding">Parking:</span> {dataM.Parking_Type == "parkyes" ? "Yes" : "No"}</li>
+                            <li><span className="listHeding">Rent:</span><b> {dataM.Rent_amt}</b>&nbsp;(monthly) &nbsp;&nbsp; | &nbsp;&nbsp; Advance<b> {dataM.Advance_amt}</b></li>
+                            <li><span className="listHeding">Address:</span> {dataM.Property_address}</li>
+                            <li><span className="listHeding">Availability:</span> {dataM.Availability_Type == "a30" ? "After 30 days" : 
+                                               dataM.Availability_Type == "w30" ? "With in 30 days":
+                                               dataM.Availability_Type == "w15" ? "With in 15 days":
+                                               "Immediatly"}</li>
                             <li></li>
                         </ul>
-                        <a href="#" className="moreDetails" onClick={detailspage}>More Details...</a>
+                        <a href="#" className="moreDetails" onClick={()=>detailspage(dataM._id)}>More Details...</a>
                         <button className="ClickContact postandsearchBtn" style={{ "width": "auto" }}>Click Here to Contact</button>
                     </div>
                 </div>
-            )) }
+            )) || <Skeleton count={50} />}
+
+            {(value.GetPostRental.dataResponse && value.GetPostRental.dataResponse.length === 0) && "No Houses found neay by..."}
 
         </>
 

@@ -15,10 +15,10 @@ import GetRentalData from '../listpage/saga';
 
 function *watchAll() {
     yield all([
-        takeLatest(GET_TALUK_VILLAGE_START, fetchVillageData),
-        takeLatest(GET_TALUK_VILLAGE_START, fetchTalukData),
-        takeLatest(POST_CREATE_RENTAL_START, CreateRentalData),
-        takeLatest(GET_POST_RENTALDATA_START, GetRentalData)
+        takeEvery(GET_TALUK_VILLAGE_START, fetchVillageData),
+        takeEvery(GET_TALUK_VILLAGE_START, fetchTalukData),
+        takeEvery(POST_CREATE_RENTAL_START, CreateRentalData),
+        takeEvery(GET_POST_RENTALDATA_START, GetRentalData)
          
     ]);
   }

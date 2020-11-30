@@ -16,7 +16,7 @@ const MiddleSearch = () => {
             <Route exact path="/list">
                <Listhouse />
             </Route>
-            <Route path="/details">
+            <Route path="/details/:id/">
                <Detailsindividual/>
             </Route>
             <Route path="/postrental">

@@ -123,7 +123,10 @@ const PostRental = () => {
                 fileupload: undefined,
                 propaddress: '',
                 description: '',
-                facilities: ''
+                facilities: '',
+                Availtype:'Im',
+                Parkingtype:'parkno',
+                Furnishingtype:'Semi' 
             }}
             validationSchema={Yup.object().shape({
                 fullname: Yup.string().min(5, 'Min 5 charactor').required('Required'),
@@ -191,8 +194,11 @@ const PostRental = () => {
                         "Description": values.description,
                         "Property_address": values.propaddress,
                         "Property_GEO": "30.0.0.0.4",
-                        "Facilities": values.facilities
-                    }
+                        "Facilities": values.facilities,
+                        "availability":values.Availtype,
+                        "parking":values.Parkingtype,
+                        "furnishing":values.Furnishingtype
+                    } 
                     var formData = new FormData();
                     for (const key of Object.keys(previewimage)) {
                         formData.append(`fileupload`, previewimage[key]);
@@ -313,7 +319,7 @@ const PostRental = () => {
                                                         defaultchecked={values.renttype === "RentType"}
                                                         onClick={(event) => { event.preventDefault(); values.leaseAmt = '' }}
                                                     />
-                                            Rental</Form.Label>
+                                                Rental</Form.Label>
 
                                                 <Form.Label className="marr20 cursorPointer">
                                                     <Field
@@ -325,7 +331,7 @@ const PostRental = () => {
                                                         defaultchecked={values.renttype === "LeaseType"}
                                                         onClick={(event) => { event.preventDefault(); values.rentAmt = ''; values.advanceAmt = ''; }}
                                                     />
-                                            Lease</Form.Label>
+                                                Lease</Form.Label>
                                             </Col>
                                             <ErrorMessage name="renttype" component="span" className="error" />
                                         </Form.Group>
@@ -383,6 +389,29 @@ const PostRental = () => {
                                             <ErrorMessage name="fileupload" component="span" className="error" />
                                             <CarouselFn imagess={previewimage} setpreviewimage={setpreviewimage} />
                                         </Form.Group>
+                                        
+                                        <div className="Fpanel">
+                                        <div className="head">Availability</div>
+                                        <label><Field type="radio" name="Availtype" className="mr-2" value="Im" defaultChecked={values.Availtype === 'Im'}/>Immediatly</label>
+                                        <label><Field type="radio" name="Availtype" className="mr-2" value="w15" defaultChecked={values.Availtype === 'w15'}/>Withiin 15 days</label>
+                                        <label><Field type="radio" name="Availtype" className="mr-2" value="w30" defaultChecked={values.Availtype === 'w30'}/>Within 30 days</label>
+                                        <label><Field type="radio" name="Availtype" className="mr-2" value="a30" defaultChecked={values.Availtype === 'a30'}/>After 30 days</label>
+                                        <ErrorMessage name="Availtype" component="span" className="error" />
+                                    </div>
+                                    <div className="Fpanel">
+                                        <div className="head">Parking</div>
+                                        <label><Field type="radio" name="Parkingtype" className="mr-2" value="parkyes" defaultChecked={values.Parkingtype === 'parkyes'}/>Yes</label>
+                                        <label><Field type="radio" name="Parkingtype" className="mr-2" value="parkno" defaultChecked={values.Parkingtype === 'parkno'}/>No</label>
+                                        <ErrorMessage name="Parkingtype" component="span" className="error" />
+                                    </div>
+                                    <div className="Fpanel">
+                                        <div className="head">Furnishing</div>
+                                        <label><Field type="radio" name="Furnishingtype" className="mr-2" value="
+                                        " defaultChecked={values.Furnishingtype === 'Full'}/>Full</label>
+                                        <label><Field type="radio" name="Furnishingtype" className="mr-2" value="Semi" defaultChecked={values.Furnishingtype === 'Semi'}/>Semi</label>
+                                        <label><Field type="radio" name="Furnishingtype" className="mr-2" value="Notype" defaultChecked={values.Furnishingtype === 'Notype'}/>No</label>
+                                        <ErrorMessage name="Furnishingtype" component="span" className="error" />
+                                    </div>
 
                                         <Form.Group controlId="exampleForm.ControlTextarea1">
                                             <Form.Label>Property Address</Form.Label>

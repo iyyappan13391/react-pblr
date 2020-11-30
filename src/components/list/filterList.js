@@ -1,11 +1,9 @@
 import React,{useState} from 'react';
+import {useSelector,useDispatch} from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
-import * as Yup from 'yup';
-
-
-
+import {Action_getPostedRentalStartfn} from '../../container/listpage/actions';
 
 
 const FilterList = () => {
@@ -13,13 +11,15 @@ const FilterList = () => {
     const [volumeMin,setvolumeMin] = useState(3500);
     const [volumeMax,setvolumeMax] = useState(7000);
 
+    const  value = useSelector(state => state);
+    const  dispatch = useDispatch(value);
+
     const handleOnChange = (value) => {
         setvolumeMin(value);
        
       }
     const handleOnChange1 = (value) => {
-        
-        setvolumeMax(value);
+       setvolumeMax(value);
     }
 
 
@@ -27,16 +27,22 @@ return(
             <div>
                 <div className="FilterTxt">Filters</div>
                 <Formik 
-                   initialValues={{Rtype:'Rent',Htype:'1BHK',RentRangeHtypeMin:"",RentRangeHtypeMax:"",Availtype:"Im",Parkingtype:"parkyes",Furnishingtype:"Semi"}}
+                   initialValues={{Rtype:['RentType'],Htype:['1BHK'],RentRangeHtypeMin:"",RentRangeHtypeMax:"",Availtype:["Im"],Parkingtype:["parkyes"],Furnishingtype:["Semi"]}}
                 //    validationSchema={Yup.object({
                 //    renttype:Yup.string().required('Required')
                      
                 //    })}
                    onSubmit={(values,{setSubmitting}) => {
-                    console.log("dsdsds");
+                    console.log("volumeMin",volumeMin);
+                    console.log("volumeMax",volumeMax);
+                    
+                    values.volumeMin = volumeMin;
+                    values.volumeMax = volumeMax;
+
                            setTimeout(()=>{
                                   alert(JSON.stringify(values));
                                   setSubmitting(false);
+                                  dispatch(Action_getPostedRentalStartfn(values));
 
                            },500)
 
@@ -46,15 +52,15 @@ return(
                             <Form>
                                     <div className="Fpanel">
                                         <div className="head">Rent Type</div>
-                                        <label><Field type="radio" name="Rtype" className="mr-2" value="Rent" defaultChecked={values.Rtype === 'Rent'}/>Rent</label>
-                                        <label><Field type="radio" name="Rtype" className="mr-2" value="Lease" defaultChecked={values.Rtype === 'Lease'}/>Lease</label>
+                                        <label><Field type="checkbox" name="Rtype" className="mr-2" value="RentType" defaultChecked={values.Rtype === 'Rent'}/>Rent</label>
+                                        <label><Field type="checkbox" name="Rtype" className="mr-2" value="LeaseType" defaultChecked={values.Rtype === 'Lease'}/>Lease</label>
                                         <ErrorMessage name="Rtype" component="span" className="error" />
                                     </div>
                                     <div className="Fpanel">
                                         <div className="head">House Type</div>
-                                        <label><Field type="radio" name="Htype" className="mr-2" value="1BHK" defaultChecked={values.Htype === '1BHK'}/>1BHK</label>
-                                        <label><Field type="radio" name="Htype" className="mr-2" value="2BHK" defaultChecked={values.Htype === '2BHK'}/>2BHK</label>
-                                        <label><Field type="radio" name="Htype" className="mr-2" value="3BHK" defaultChecked={values.Htype === '3BHK'}/>3BHK</label>
+                                        <label><Field type="checkbox" name="Htype" className="mr-2" value="1BHK" defaultChecked={values.Htype === '1BHK'}/>1BHK</label>
+                                        <label><Field type="checkbox" name="Htype" className="mr-2" value="2BHK" defaultChecked={values.Htype === '2BHK'}/>2BHK</label>
+                                        <label><Field type="checkbox" name="Htype" className="mr-2" value="3BHK" defaultChecked={values.Htype === '3BHK'}/>3BHK</label>
                                         <ErrorMessage name="Htype" component="span" className="error" />
                                     </div>
                                     <div className="Fpanel">
@@ -91,29 +97,29 @@ return(
                                     </div>
                                     <div className="Fpanel">
                                         <div className="head">Availability</div>
-                                        <label><Field type="radio" name="Availtype" className="mr-2" value="Im" defaultChecked={values.Availtype === 'Im'}/>Immediatly</label>
-                                        <label><Field type="radio" name="Availtype" className="mr-2" value="w15" defaultChecked={values.Availtype === 'w15'}/>Withiin 15 days</label>
-                                        <label><Field type="radio" name="Availtype" className="mr-2" value="w30" defaultChecked={values.Availtype === 'w30'}/>Within 30 days</label>
-                                        <label><Field type="radio" name="Availtype" className="mr-2" value="a30" defaultChecked={values.Availtype === 'a30'}/>After 30 days</label>
+                                        <label><Field type="checkbox" name="Availtype" className="mr-2" value="Im" defaultChecked={values.Availtype === 'Im'}/>Immediatly</label>
+                                        <label><Field type="checkbox" name="Availtype" className="mr-2" value="w15" defaultChecked={values.Availtype === 'w15'}/>Withiin 15 days</label>
+                                        <label><Field type="checkbox" name="Availtype" className="mr-2" value="w30" defaultChecked={values.Availtype === 'w30'}/>Within 30 days</label>
+                                        <label><Field type="checkbox" name="Availtype" className="mr-2" value="a30" defaultChecked={values.Availtype === 'a30'}/>After 30 days</label>
                                         <ErrorMessage name="Availtype" component="span" className="error" />
                                     </div>
                                     <div className="Fpanel">
                                         <div className="head">Parking</div>
-                                        <label><Field type="radio" name="Parkingtype" className="mr-2" value="parkyes" defaultChecked={values.Parkingtype === 'parkyes'}/>Yes</label>
-                                        <label><Field type="radio" name="Parkingtype" className="mr-2" value="parkno" defaultChecked={values.Parkingtype === 'parkno'}/>No</label>
+                                        <label><Field type="checkbox" name="Parkingtype" className="mr-2" value="parkyes" defaultChecked={values.Parkingtype === 'parkyes'}/>Yes</label>
+                                        <label><Field type="checkbox" name="Parkingtype" className="mr-2" value="parkno" defaultChecked={values.Parkingtype === 'parkno'}/>No</label>
                                         <ErrorMessage name="Parkingtype" component="span" className="error" />
                                     </div>
                                     <div className="Fpanel">
                                         <div className="head">Furnishing</div>
-                                        <label><Field type="radio" name="Furnishingtype" className="mr-2" value="
+                                        <label><Field type="checkbox" name="Furnishingtype" className="mr-2" value="
                                         " defaultChecked={values.Furnishingtype === 'Full'}/>Full</label>
-                                        <label><Field type="radio" name="Furnishingtype" className="mr-2" value="Semi" defaultChecked={values.Furnishingtype === 'Semi'}/>Semi</label>
-                                        <label><Field type="radio" name="Furnishingtype" className="mr-2" value="Notype" defaultChecked={values.Furnishingtype === 'Notype'}/>No</label>
+                                        <label><Field type="checkbox" name="Furnishingtype" className="mr-2" value="Semi" defaultChecked={values.Furnishingtype === 'Semi'}/>Semi</label>
+                                        <label><Field type="checkbox" name="Furnishingtype" className="mr-2" value="Notype" defaultChecked={values.Furnishingtype === 'Notype'}/>No</label>
                                         <ErrorMessage name="Furnishingtype" component="span" className="error" />
                                     </div>
 
                                     <div className="Fpanel text-right">
-                                        <button className="pblrThemeBtn marr10" type="reset">Remove Filter</button>
+                                        <button className="pblrThemeBtn marr10" type="reset" onClick={()=>dispatch(Action_getPostedRentalStartfn())}>Remove Filter</button>
                                         <button className="pblrThemeBtn" type="submit">Submit Filter</button>
                                     </div>
                                 
